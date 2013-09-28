@@ -1,8 +1,8 @@
-# tabline.vim
+# tabline-powerline.vim
 
 Configure tab labels within Terminal Vim with a very succinct output.
 
-![Tabline Screenshot](https://raw.github.com/mkitt/tabline.vim/master/screenshots/tabline.png)
+![Tabline Screenshot](https://raw.github.com/takeiteasy/tabline.vim/master/screenshots/tabline.png)
 
 - Tab number
 - Filename (basename only)
