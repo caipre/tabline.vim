@@ -1,5 +1,6 @@
-" File:        tabline.vim
-" Maintainer:  Matthew Kitt <http://mkitt.net/>
+" File:        tabline-powerline.vim
+" Maintainer:  Matthew Kitt <http://mkitt.net/> (originator)
+"              Rusty Shackleford <http://takeiteasy.github.io/>
 " Description: Configure tabs within Terminal Vim.
 " Last Change: 2012-10-21
 " License:     This program is free software. It comes without any warranty,
@@ -15,11 +16,11 @@ if (exists("g:loaded_tabline_vim") && g:loaded_tabline_vim) || &cp
 endif
 let g:loaded_tabline_vim = 1
 
-hi User1 ctermbg=green ctermfg=red   guibg=green guifg=red
-hi User2 ctermbg=red   ctermfg=blue  guibg=red   guifg=blue
-hi User3 ctermbg=blue  ctermfg=green guibg=blue  guifg=green
-
 function! Tabline()
+  let win = (has("gui_running") ? 'gui' : 'cterm')
+  exe 'hi User1 guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' guifg=' . synIDattr(hlID('TablineSel'),  'bg', win) . ' gui=NONE'
+  exe 'hi User2 guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' guifg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' gui=NONE'
+
   let s = ''
   for i in range(tabpagenr('$'))
     let tab = i + 1
@@ -38,7 +39,7 @@ function! Tabline()
       let s .= '[+] '
     endif
 
-    let s.= '%1*⮀%*'
+    let s.= (tab == tabpagenr() ? '%1*' : '%2*') . '⮀%*'
   endfor
 
   let s .= '%#TabLineFill#'
