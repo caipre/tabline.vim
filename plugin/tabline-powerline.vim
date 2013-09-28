@@ -36,6 +36,7 @@ function! GetGUIAttr(id, win)
   return ret
 endfunction
 
+" Generate Tabline
 function! Tabline()
   let win = (has("gui_running") ? 'gui' : 'cterm')
   exe 'hi User1 ' . win . 'fg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('Tabline'),     'bg', win) . ' ' . GetGUIAttr('Tabline', win)
@@ -44,8 +45,9 @@ function! Tabline()
   exe 'hi User4 ' . win . 'fg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
   exe 'hi User5 ' . win . 'fg=' . synIDattr(hlID('Tabline'),    'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineSel'),  'bg', win) . ' ' . GetGUIAttr('Tabline', win)
 
-  let s = ''
-  for i in range(tabpagenr('$'))
+  let s  = ''
+  let tt = tabpagenr('$')
+  for i in range(tt)
     let tab         = i + 1
     let winnr       = tabpagewinnr(tab)
     let buflist     = tabpagebuflist(tab)
@@ -53,9 +55,9 @@ function! Tabline()
     let bufname     = bufname(bufnr)
     let bufmodified = getbufvar(bufnr, "&mod")
 
-    let cur_tab     = tab == tabpagenr()
-    let last_tab    = tab == tabpagenr('$')
-    let pre_tab     = tab == (tabpagenr() - 1)
+    let cur_tab     = (tab == tabpagenr())
+    let last_tab    = (tab == tt)
+    let pre_tab     = (tab == (tabpagenr() - 1))
 
     let s .= '%' . tab . 'T'
     let s .= (cur_tab ? '%#TabLineSel#' : '%#TabLine#')
@@ -69,8 +71,9 @@ function! Tabline()
     let s.= (cur_tab ? (last_tab ? '%4*' : '%1*') : (last_tab ? '%3*' : (pre_tab ? '%5*' : '%2*'))) . '⮀%*'
   endfor
 
-  let s .= '%#TabLineFill#'
+  let s .= '%T%#TabLineFill#%=' . (tt > 1 ? '%3*⮂%#Tabline# %999XX %1*⮂%#TablineSel# tabs' : 'X')
   return s
 endfunction
+
 set tabline=%!Tabline()
 
