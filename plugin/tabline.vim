@@ -15,6 +15,10 @@ if (exists("g:loaded_tabline_vim") && g:loaded_tabline_vim) || &cp
 endif
 let g:loaded_tabline_vim = 1
 
+hi User1 ctermbg=green ctermfg=red   guibg=green guifg=red
+hi User2 ctermbg=red   ctermfg=blue  guibg=red   guifg=blue
+hi User3 ctermbg=blue  ctermfg=green guibg=blue  guifg=green
+
 function! Tabline()
   let s = ''
   for i in range(tabpagenr('$'))
@@ -33,6 +37,8 @@ function! Tabline()
     if bufmodified
       let s .= '[+] '
     endif
+
+    let s.= '%1*⮀%*'
   endfor
 
   let s .= '%#TabLineFill#'
