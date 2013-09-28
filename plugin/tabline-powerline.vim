@@ -71,7 +71,7 @@ function! Tabline()
     let s.= (cur_tab ? (last_tab ? '%4*' : '%1*') : (last_tab ? '%3*' : (pre_tab ? '%5*' : '%2*'))) . '⮀%*'
   endfor
 
-  let s .= '%T%#TabLineFill#%=' . (tt > 1 ? '%3*⮂%#Tabline# %999XX %1*⮂%#TablineSel# tabs' : 'X')
+  let s .= '%T%#TabLineFill#%=' . (tt > 1 ? '%3*⮂%#Tabline# %999XX %1*⮂%#TablineSel# tabs ' : 'X')
   return s
 endfunction
 
