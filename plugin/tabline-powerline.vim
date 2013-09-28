@@ -38,11 +38,11 @@ endfunction
 
 function! Tabline()
   let win = (has("gui_running") ? 'gui' : 'cterm')
-  exe 'hi User1 ' . win . 'fg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('Tabline'),  'bg', win) . ' ' . Get' . win . 'Attr('Tabline', win)
-  exe 'hi User2 ' . win . 'fg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' ' . Get' . win . 'Attr('Tabline', win)
-  exe 'hi User3 ' . win . 'fg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . Get' . win . 'Attr('Tabline', win)
-  exe 'hi User4 ' . win . 'fg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . Get' . win . 'Attr('Tabline', win)
-  exe 'hi User5 ' . win . 'fg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . Get' . win . 'Attr('Tabline', win)
+  exe 'hi User1 ' . win . 'fg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('Tabline'),     'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User2 ' . win . 'fg=' . synIDattr(hlID('Tabline'),    'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('Tabline'),     'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User3 ' . win . 'fg=' . synIDattr(hlID('Tabline'),    'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User4 ' . win . 'fg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User5 ' . win . 'fg=' . synIDattr(hlID('Tabline'),    'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineSel'),  'bg', win) . ' ' . GetGUIAttr('Tabline', win)
 
   let s = ''
   for i in range(tabpagenr('$'))
