@@ -18,20 +18,28 @@ let g:loaded_tabline_vim = 1
 
 function! Tabline()
   let win = (has("gui_running") ? 'gui' : 'cterm')
-  exe 'hi User1 guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' guifg=' . synIDattr(hlID('TablineSel'),  'bg', win) . ' gui=NONE'
-  exe 'hi User2 guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' guifg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' gui=NONE'
+  " TODO: Add proper settings for 'gui=' option
+  exe 'hi User1 guifg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' guibg=' . synIDattr(hlID('Tabline'),  'bg', win) . ' gui=NONE'
+  exe 'hi User2 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' gui=NONE'
+  exe 'hi User3 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' gui=NONE'
+  exe 'hi User4 guifg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' gui=NONE'
+  exe 'hi User5 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' gui=NONE'
 
   let s = ''
   for i in range(tabpagenr('$'))
-    let tab = i + 1
-    let winnr = tabpagewinnr(tab)
-    let buflist = tabpagebuflist(tab)
-    let bufnr = buflist[winnr - 1]
-    let bufname = bufname(bufnr)
+    let tab         = i + 1
+    let winnr       = tabpagewinnr(tab)
+    let buflist     = tabpagebuflist(tab)
+    let bufnr       = buflist[winnr - 1]
+    let bufname     = bufname(bufnr)
     let bufmodified = getbufvar(bufnr, "&mod")
 
+    let cur_tab     = tab == tabpagenr()
+    let last_tab    = tab == tabpagenr('$')
+    let pre_tab     = tab == (tabpagenr() - 1)
+
     let s .= '%' . tab . 'T'
-    let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+    let s .= (cur_tab ? '%#TabLineSel#' : '%#TabLine#')
     let s .= ' ' . tab .':'
     let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . '] ' : '[No Name] ')
 
@@ -39,7 +47,7 @@ function! Tabline()
       let s .= '[+] '
     endif
 
-    let s.= (tab == tabpagenr() ? '%1*' : '%2*') . '⮀%*'
+    let s.= (cur_tab ? (last_tab ? '%4*' : '%1*') : (last_tab ? '%3*' : (pre_tab ? '%5*' : '%2*'))) . '⮀%*'
   endfor
 
   let s .= '%#TabLineFill#'
