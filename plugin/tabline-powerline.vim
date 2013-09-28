@@ -16,14 +16,33 @@ if (exists("g:loaded_tabline_vim") && g:loaded_tabline_vim) || &cp
 endif
 let g:loaded_tabline_vim = 1
 
+" Get the GUI attributes of a Highlight ID, e.g. underline, bold, etc
+function! GetGUIAttr(id, win)
+  let ret   = ''
+  let attrs = ['bold', 'italic', 'underline', 'reverse', 'inverse']
+
+  for i in range(5)
+    if (synIDattr(hlID(a:id), attrs[i], a:win))
+      let ret .= ',' . attrs[i]
+    endif
+  endfor
+
+  if (ret == '')
+    let ret = 'gui=NONE'
+  else
+    let ret = substitute(ret, '^,', 'gui=', '')
+  endif
+
+  return ret
+endfunction
+
 function! Tabline()
   let win = (has("gui_running") ? 'gui' : 'cterm')
-  " TODO: Add proper settings for 'gui=' option
-  exe 'hi User1 guifg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' guibg=' . synIDattr(hlID('Tabline'),  'bg', win) . ' gui=NONE'
-  exe 'hi User2 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' gui=NONE'
-  exe 'hi User3 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' gui=NONE'
-  exe 'hi User4 guifg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' gui=NONE'
-  exe 'hi User5 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' gui=NONE'
+  exe 'hi User1 guifg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' guibg=' . synIDattr(hlID('Tabline'),  'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User2 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User3 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User4 guifg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User5 guifg=' . synIDattr(hlID('Tabline'), 'bg', win) . ' guibg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
 
   let s = ''
   for i in range(tabpagenr('$'))
@@ -54,4 +73,5 @@ function! Tabline()
   return s
 endfunction
 set tabline=%!Tabline()
+
 
