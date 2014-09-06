@@ -39,7 +39,7 @@ endfunction
 " Generate Tabline
 function! Tabline()
   let win = (has("gui_running") ? 'gui' : 'cterm')
-  exe 'hi User1 ' . win . 'fg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('Tabline'),     'bg', win) . ' ' . GetGUIAttr('Tabline', win)
+  exe 'hi User1 ' . win . 'fg=' . synIDattr(hlID('Title'),      'fg', win) . ' ' . win . 'bg=' . synIDattr(hlID('Tabline'),     'bg', win) . ' ' . GetGUIAttr('Tabline', win)
   exe 'hi User2 ' . win . 'fg=' . synIDattr(hlID('Tabline'),    'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('Tabline'),     'bg', win) . ' ' . GetGUIAttr('Tabline', win)
   exe 'hi User3 ' . win . 'fg=' . synIDattr(hlID('Tabline'),    'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
   exe 'hi User4 ' . win . 'fg=' . synIDattr(hlID('TablineSel'), 'bg', win) . ' ' . win . 'bg=' . synIDattr(hlID('TablineFill'), 'bg', win) . ' ' . GetGUIAttr('Tabline', win)
@@ -68,10 +68,10 @@ function! Tabline()
       let s .= '[+] '
     endif
 
-    let s.= (cur_tab ? (last_tab ? '%4*' : '%1*') : (last_tab ? '%3*' : (pre_tab ? '%5*' : '%2*'))) . '⮀%*'
+    let s.= (cur_tab ? (last_tab ? '%4*' : '%4*') : (last_tab ? '%3*' : (pre_tab ? '%5*' : '%2*'))) . '⮀%*'
   endfor
 
-  let s .= '%T%#TabLineFill#%=' . (tt > 1 ? '%3*⮂%#Tabline# %999XX %1*⮂%#TablineSel# tabs ' : 'X')
+  let s .= '%T%#TabLineFill#%=' . (tt > 1 ? '%3*⮂%#Tabline# %999XX %1*⮂%#WildMenu# tabs ' : 'X')
   return s
 endfunction
 
