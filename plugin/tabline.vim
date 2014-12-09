@@ -1,7 +1,7 @@
 " File:        tabline.vim
 " Maintainer:  Matthew Kitt <http://mkitt.net/>
 " Description: Configure tabs within Terminal Vim.
-" Last Change: 2012-10-21
+" Last Change: Tue 09/Dec/2014 hr 13:47
 " License:     This program is free software. It comes without any warranty,
 "              to the extent permitted by applicable law. You can redistribute
 "              it and/or modify it under the terms of the Do What The Fuck You
@@ -15,6 +15,30 @@ if (exists("g:loaded_tabline_vim") && g:loaded_tabline_vim) || &cp
 endif
 let g:loaded_tabline_vim = 1
 
+if !exists('g:tabeline_fnamemod')
+  let g:tabline_fnamemod = ':t'
+endif
+
+if !exists('g:tabline_modified')
+  let g:tabline_modified = '[+] '
+endif
+
+if !exists('g:tabline_show_tab_num')
+  let g:tabline_show_tab_num = 1
+endif
+
+if !exists('g:tabline_bracket_left')
+  let g:tabline_bracket_left = '['
+endif
+
+if !exists('g:tabline_bracket_right')
+  let g:tabline_bracket_right = '] '
+endif
+
+if !exists('g:tabline_no_name')
+  let g:tabline_no_name = 'No Name'
+endif
+
 function! Tabline()
   let s = ''
   for i in range(tabpagenr('$'))
@@ -27,11 +51,17 @@ function! Tabline()
 
     let s .= '%' . tab . 'T'
     let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-    let s .= ' ' . tab .':'
-    let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . '] ' : '[No Name] ')
+    let s .= ' '
+    if g:tabline_show_tab_num == 1
+      let s .= tab .':'
+    endif
+    let s .=
+          \ g:tabline_bracket_left
+          \ . (bufname != '' ?  fnamemodify(bufname, g:tabline_fnamemod) : g:tabline_no_name)
+          \ . g:tabline_bracket_right
 
     if bufmodified
-      let s .= '[+] '
+      let s .= g:tabline_modified
     endif
   endfor
 
