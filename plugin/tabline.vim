@@ -1,7 +1,7 @@
 " File:        tabline.vim
 " Maintainer:  Matthew Kitt <http://mkitt.net/>
 " Description: Configure tabs within Terminal Vim.
-" Last Change: Tue 09/Dec/2014 hr 13:47
+" Last Change: Wed 10/Dec/2014 hr 22:58
 " License:     This program is free software. It comes without any warranty,
 "              to the extent permitted by applicable law. You can redistribute
 "              it and/or modify it under the terms of the Do What The Fuck You
@@ -25,6 +25,10 @@ endif
 
 if !exists('g:tabline_show_tab_num')
   let g:tabline_show_tab_num = 1
+endif
+
+if !exists('g:tabline_tab_num_sep')
+  let g:tabline_tab_num_sep = ':'
 endif
 
 if !exists('g:tabline_bracket_left')
@@ -53,10 +57,10 @@ function! Tabline()
     let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
     let s .= ' '
     if g:tabline_show_tab_num == 1
-      let s .= tab .':'
+      let s .= tab . g:tabline_tab_num_sep
     endif
     let s .=
-          \ g:tabline_bracket_left
+          \   g:tabline_bracket_left
           \ . (bufname != '' ?  fnamemodify(bufname, g:tabline_fnamemod) : g:tabline_no_name)
           \ . g:tabline_bracket_right
 
