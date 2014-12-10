@@ -1,0 +1,71 @@
+Tabline.vim
+Fork from https://github.com/mkitt/tabline.vim and merge
+from https://github.com/takeiteasy/tabline-powerline.vim
+
+
+==============================================================================
+CONTENTS                                                             *tabline*
+
+  1.About.....................................................*tabline-about*
+  2.Settings...............................................*tabline-settings*
+
+==============================================================================
+1. About                                                       *tabline-about*
+
+Configure tabs within Terminal Vim.
+
+The tab name is derived from the name of the buffer that currently has
+focus.
+
+==============================================================================
+2. Settings                                                 *tabline-settings*
+
+Note: defaults are mimic vanilla tabline.
+
+                                                        *'g:tabline_fnamemod'*
+fnamemodify flags to modify the appearance of the tab name
+>
+  let g:tabline_fnamemod = ':t'
+<
+
+                                                    *'g:tabline_show_tab_num'*
+Show the number of the tab at the start of the tab title
+>
+  let g:tabline_show_tab_num = 1
+<
+
+                                                     *'g:tabline_tab_num_sep'*
+Character to separate tab number and tab name
+>
+  let g:tabline_tab_num_sep = ':'
+<
+
+                                                        *'g:tabline_modified'*
+Text to be appended at the end of the tab name if it has modifications
+>
+  let g:tabline_modified = '[+] '
+<
+
+                                                    *'g:tabline_bracket_left'*
+The left surrounding bracket to go around the tab name
+>
+  let g:tabline_bracket_left = '['
+<
+
+                                                    *'g:tabline_bracket_right'*
+The right surrounding bracket to go around the tab name
+>
+  let g:tabline_bracket_right = '] '
+<
+
+                                                          *'g:tabline_no_name'*
+Text to be shown if the tab has no name
+>
+  let g:tabline_no_name = 'No Name'
+<
+
+                                                        *'g:tabline_powerline'*
+Enable powerline arrows at the end of each tab
+>
+  let g:tabline_powerline = 0
+<
