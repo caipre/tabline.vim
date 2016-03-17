@@ -15,7 +15,7 @@ if (exists("g:loaded_tabline_vim") && g:loaded_tabline_vim) || &cp
 endif
 let g:loaded_tabline_vim = 1
 
-if !exists('g:tabeline_fnamemod')
+if !exists('g:tabline_fnamemod')
   let g:tabline_fnamemod = ':t'
 endif
 
