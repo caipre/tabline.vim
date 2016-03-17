@@ -99,7 +99,7 @@ function! Tabline()
     endif
     let s .=
           \   g:tabline_bracket_left
-          \ . (bufname != '' ?  fnamemodify(bufname, g:tabline_fnamemod) : g:tabline_no_name)
+          \ . (bufname != '' ?  pathshorten(fnamemodify(bufname, g:tabline_fnamemod)) : g:tabline_no_name)
           \ . g:tabline_bracket_right
 
     if bufmodified
