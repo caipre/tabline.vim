@@ -108,6 +108,7 @@ function! Tabline()
     if g:tabline_powerline
       let s.= (cur_tab ? (last_tab ? '%4*' : '%6*') : (last_tab ? '%3*' : (pre_tab ? '%5*' : '%2*'))) . '%*'
     endif
+    let s .= ' '
   endfor
 
   let s .= '%#TabLineFill#'
